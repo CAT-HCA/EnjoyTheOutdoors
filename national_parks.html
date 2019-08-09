@@ -13,10 +13,6 @@
     <!-- linking custom site CSS -->
     <link rel="stylesheet" type="text/css" href="css/site.css">
 
-    <!-- linking custom page CSS -->
-    <link rel="stylesheet" type="text/css" href="css/index.css">
-
-
 
     <!--Font Awesome link-->
     <script src="https://kit.fontawesome.com/d9e1614114.js"></script>
@@ -27,38 +23,25 @@
 </head>
 
 <body>
+    <!--START NAV BAR-->
+
+    <nav class="navbar navbar-dark navbar-expand-lg p-3 px-md-4 bg-info border-bottom shadow-sm">
+            <span class="navbar-brand mb-0 h1">
+                <a class="text-white navHome" href="#">CAT Outdoor Adventures</a></span>
+            <button class="navbar-toggler btn-white" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse float-right flex-row-reverse" id="navbarNavAltMarkup">
+                <div class="navbar-nav"></div>
+                <a class="nav-item nav-link p-2 mr-2 text-white inactive" href="mountains.html">Explore Mountains</a>
+                <a class="nav-item nav-link p-2 mr-2 text-white inactive" href="national_parks.html">Explore National Parks</a>
+            </div>
+        </nav>
+        <!--END NAV BAR-->
 
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="row jumbotron jumbotron-fluid test">
-        <div class="container row ml-3">
-            <div class="align-items-end text-white">
-                <h1>Enjoy the Outdoors</h1>
-                <h2 class="font-weight-light">Every mountain top is within reach if you just keep climbing.<br><span
-                        class="font-weight-normal font-italic">- Barry Finlay</span></h2>
-            </div>
-        </div>
-    </div>
-    <main class="container col-md-9 mx-auto text-info mt-3">
-        <div class="row">
-        <div class="card col-5 mx-auto">
-            <img src="images/index_nat_park.jpg" class="card-img-top" alt="national park">
-            <div class="card-body">
-              <h5 class="card-title">Explore National Parks</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="national_parks.html" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-          <div class="card col-5 mx-auto">
-            <img src="images/index_mountain.jpg" class="card-img-top" alt="snowy mountains">
-            <div class="card-body">
-              <h5 class="card-title">Explore Mountains</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="mountains.html" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-        </div>
-    </main>
+
     <!-- FOOTER -->
     <footer class="row footer border-top border-info">
         <div class="container col-12 text-center">
