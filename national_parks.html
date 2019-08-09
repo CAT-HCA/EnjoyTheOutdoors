@@ -13,6 +13,9 @@
     <!-- linking custom site CSS -->
     <link rel="stylesheet" type="text/css" href="css/site.css">
 
+    <!-- linking custom page CSS -->
+    <link rel="stylesheet" type="text/css" href="css/national_parks.css">
+
 
     <!--Font Awesome link-->
     <script src="https://kit.fontawesome.com/d9e1614114.js"></script>
@@ -26,19 +29,69 @@
     <!--START NAV BAR-->
 
     <nav class="navbar navbar-dark navbar-expand-lg p-3 px-md-4 bg-info border-bottom shadow-sm">
-            <span class="navbar-brand mb-0 h1">
-                <a class="text-white navHome" href="#">CAT Outdoor Adventures</a></span>
-            <button class="navbar-toggler btn-white" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse float-right flex-row-reverse" id="navbarNavAltMarkup">
-                <div class="navbar-nav"></div>
-                <a class="nav-item nav-link p-2 mr-2 text-white inactive" href="mountains.html">Explore Mountains</a>
-                <a class="nav-item nav-link p-2 mr-2 text-white inactive" href="national_parks.html">Explore National Parks</a>
+        <span class="navbar-brand mb-0 h1">
+            <a class="text-white navHome" href="#">CAT Outdoor Adventures</a></span>
+        <button class="navbar-toggler btn-white" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse float-right flex-row-reverse" id="navbarNavAltMarkup">
+            <div class="navbar-nav"></div>
+            <a class="nav-item nav-link p-2 mr-2 text-white inactive" href="mountains.html">Explore Mountains</a>
+            <a class="nav-item nav-link p-2 mr-2 text-white active" href="national_parks.html">Explore National
+                Parks</a>
+        </div>
+    </nav>
+    <!--END NAV BAR-->
+
+
+    <main class="container mt-3">
+        <form class="container">
+            <fieldset class="border border-info p-3 rounded col-3">
+                <legend class="font-weight-light text-white w-75 rounded">Search
+                </legend>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sortOptions" id="sortByLoc" value="sortByLoc"
+                        checked>
+                    <label class="form-check-label" for="sortByLoc">Search by Location</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sortOptions" id="sortByType" value="sortByType">
+                    <label class="form-check-label" for="sortByType">Search by Park Type</label>
+                </div>
+            </fieldset>
+            <div id="locFilterDiv" class="form-group container">
+                <label for="locationDD">Select a state/province to search for National Parks by location:</label>
+                <select class="form-control" id="locationDD" name="locationDD">
+                    <option value="choose">Choose a Location</option>
+                </select>
             </div>
-        </nav>
-        <!--END NAV BAR-->
+            <div id="typeFilterDiv" class="form-group">
+                <label for="parkTypeDD">Select a type of park to search for National Parks by type of park:</label>
+                <select class="form-control" id="parkTypeDD" name="parkTypeDD">
+                    <option class="font-italic" value="choose">Choose a Park Type</option>
+                </select>
+            </div>
+            <div>
+                <input class="btn btn-info my-3" type="button" id="showAllBtn" name="showAllBtn" value="Show All Parks">
+                <input class="btn btn-info my-3" type="button" id="resetBtn" name="resetBtn" value="Start over">
+            </div>
+        </form>
+        <div class="row">
+            <table id="parkTableOutput" class="container table table-bordered table-striped mt-5">
+                <thead class="thead-dark">
+                    <tr>
+                        <th class="text-white">Park Name</th>
+                        <th class="text-white">Location</th>
+                        <th class="text-white">Coordinates</th>
+                        <th class="text-white">Website</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                </tbody>
+            </table>
+        </div>
+    </main>
 
 
 
@@ -54,15 +107,14 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+    <script src="scripts/national_parks.js"></script>
 </body>
 
 </html>
