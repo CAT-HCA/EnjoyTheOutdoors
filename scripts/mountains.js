@@ -1,5 +1,6 @@
 'use strict';
 
+//window on load event handler
 window.onload = function() {
 	let objs;
 	let dropDownList = document.getElementById('mtnSelect');
@@ -12,8 +13,9 @@ window.onload = function() {
 			dropDownList.appendChild(dropDownoptions);
 		}
 	});
-
+	//dropdown list on change event handler (when user makes a selection)
 	dropDownList.onchange = function() {
+		//mountain variables pulled from json object
 		let selection = objs.mountains[mtnSelect.selectedIndex];
 		let mtnName = selection.name;
 		let mtnElev = selection.elevation;
@@ -22,48 +24,60 @@ window.onload = function() {
 		let mtnDesc = selection.desc;
 		let mtnLat = selection.coords.lat;
 		let mtnLong = selection.coords.lng;
+
+		//URL for sunrise/sunset time API
 		let concatURL = 'https://api.sunrise-sunset.org/json?lat=' + mtnLat + '&lng=' + mtnLong + '&date=today';
 		let timeObj, sunriseTime, sunsetTime;
-		let timeZoneResults;
-		let codeLookupURL =
-			'http://api.timezonedb.com/v2.1/get-time-zone?key=Z5NMTI9BSFUC&format=json&by=position&lat=' +
-			mtnLat +
-			'&lng=' +
-			mtnLong;
-		$.getJSON(codeLookupURL, function(data) {
-			timeZoneResults = data;
-			console.log(timeZoneResults);
-			let gmcOffset = timeZoneResults.gmtOffset;
-			let offsetMSec = gmcOffset * 1000;
 
-			$.getJSON(concatURL, function(data) {
-				timeObj = data;
-                const msPerDay = 1000 * 60 * 60 *24;
-                let sunriseTime = timeObj.results.sunrise;
-                let sunriseDateTime = new Date('1970-01-01T' + sunriseTime + 'Z');
-                let sunriseTimeMS = Date.parse(sunriseDateTime);
-                let sunsetTime = timeObj.results.sunset;
-                let sunsetTimeMS = Date.parse(sunsetTime);
+		//sunrise & sunset time API by long/lat
+		$.getJSON(concatURL, function(data) {
+			//time variables pulled from API 
+			timeObj = data;
+			sunriseTime = timeObj.results.sunrise;
+			sunsetTime = timeObj.results.sunset;
 
-                let localSunriseTimeMS = sunriseTimeMS - offsetMSec;
-                let localSunsetTimeMS = sunsetTimeMS - offsetMSec;
+			//time Conversion API url
+			let codeLookupURL =
+				'http://api.timezonedb.com/v2.1/get-time-zone?key=Z5NMTI9BSFUC&format=json&by=position&lat=' + mtnLat + '&lng=' + mtnLong;
+			let timeConversionObj;
 
-                let localSunriseTime = new Date (localSunriseTimeMS);
-                let localSunsetTime = new Date (localSunsetTimeMS);
+			//API for looking up time zone difference from coordinates
+			$.getJSON(codeLookupURL, function(codeData) {
+				timeConversionObj = codeData;
+				let timeOffset = timeConversionObj.gmtOffset;
+				let timeOffsetMS = timeOffset * 1000;
+				//splitting off hours to adjust for timezone
+				let riseTime = new Date("01-01-1970 " + sunriseTime);
+				let riseTimeMS = Date.parse(riseTime);
+				let localRiseTimeMS = riseTimeMS + timeOffsetMS;
+				let localRiseTime = new Date(localRiseTimeMS);
+				let localRiseHour = localRiseTime.getHours();
+				let localRiseMin = localRiseTime.getMinutes();
+				let localRiseSec = localRiseTime.getSeconds();
+				let localRiseOutputTime = (localRiseHour + ":" + localRiseMin + ":" + localRiseSec + " AM");
+
+				let setTime = new Date("01-01-1970 " + sunsetTime);
+				let setTimeMS = Date.parse(setTime);
+				let localSetTimeMS = setTimeMS + timeOffsetMS;
+				let localSetTime = new Date(localSetTimeMS);
+				let localSetHour = localSetTime.getHours();
+				let localSetMin = localSetTime.getMinutes();
+				let localSetSec = localSetTime.getSeconds();
+				let localSetOutputTime = ((localSetHour-12) + ":" + localSetMin + ":" + localSetSec + " PM");
 
 				//row7 - Today's Sunrise
 				let row7 = displayTable.insertRow(displayTable.rows.length);
 				let cell1_7 = row7.insertCell(0);
 				cell1_7.innerHTML = "Today's Sunrise";
 				let cell2_7 = row7.insertCell(1);
-				cell2_7.innerHTML = localSunriseTime;
+				cell2_7.innerHTML = localRiseOutputTime;
 
 				//row8 - Today's Sunset
 				let row8 = displayTable.insertRow(displayTable.rows.length);
 				let cell1_8 = row8.insertCell(0);
 				cell1_8.innerHTML = "Today's Sunset";
 				let cell2_8 = row8.insertCell(1);
-				cell2_8.innerHTML = localSunsetTime;
+				cell2_8.innerHTML = localSetOutputTime;
 			});
 		});
 
