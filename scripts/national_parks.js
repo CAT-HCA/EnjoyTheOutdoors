@@ -197,6 +197,10 @@ window.onload = function() {
 };
 
 function insertRowInTable(tableBody, parkName, city, state, latitude, longitude, url) {
+	let thead = table.insertRow(tableBody.rows.length);
+	let thCell1 = thead.insertCell;
+	thCell1.innerHTML = parkName;
+
 	let row = tableBody.insertRow(tableBody.rows.length);
 	let cell1 = row.insertCell(0);
 	cell1.innerHTML = parkName;
